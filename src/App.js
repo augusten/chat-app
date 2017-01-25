@@ -28,10 +28,10 @@ export class App extends ArvaApp {
     static defaultDataSource() {
         /* Firebase initialization */
         firebase.initializeApp({
-            apiKey: '<api-key>',
-            authDomain: '<subdomain>.firebaseapp.com',
-            databaseURL: 'https://<subdomain>.firebaseio.com',
-            storageBucket: '<subdomain>.appspot.com'
+            apiKey: 'AIzaSyCTe7WOl70Xtb8NMOcEVPhpPDY3DxqeOBU',
+            authDomain: 'chatapp-6d60b.firebaseapp.com',
+            databaseURL: 'https://chatapp-6d60b.firebaseio.com',
+            storageBucket: 'chatapp-6d60b.appspot.com'
         });
         return new FirebaseDataSource('/', {});
     }
