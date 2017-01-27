@@ -11,24 +11,34 @@ import {Note, Notes}         from '../models/HomeModel.js'
 import Utility               from 'famous/utilities/Utility.js'
 
 
-// export class ViewWithTopBar extends View {
-//     /* Dock to the top with a 44px height */
-//     @layout.dock.top(44, 0, 10)
-//     /* Define an animation on creation */
-//     @layout.animate({
-//         animation: AnimationController.Animation.Slide.Down,
-//         transition: {duration: 100}
-//     })
-//     /* Initialize the surface itself */
-//     topBar = new Surface({
-//         /* CSS properties */
-//         properties: {
-//             backgroundColor: 'teal'
-//         }
-//     });
-// }
+export class ViewWithTop extends View {
+	// create greeting
 
-export class ViewWithScroll extends View {
+	/* The size of this surface is 300x25 px */
+    @layout.dock.top(44, 0, 10)
+
+    /* Listen for mouseover events to show the other Surface */
+    @event.on('mouseover', function(){ console.log( 'hello' )})
+
+
+    /* Define an animation on creation */
+    @layout.animate({
+        animation: AnimationController.Animation.Slide.Down,
+        transition: {duration: 200}
+    })
+   /* Initialize the surface itself */
+    message = new Surface({
+        /* The content of the surface */
+        content: `hello ${this.options.welcomeName}`,
+        /* CSS properties */
+        properties: {
+            textAlign: 'center',
+            color: 'slategray'
+        }
+    });
+}
+
+export class ViewWithScroll extends ViewWithTop {
 
 	// creates the scroll view of messages
     @layout.size(600, 150)
@@ -52,32 +62,7 @@ export class ViewWithScroll extends View {
 }
 
 export class HomeView extends ViewWithScroll {
-	// create greeting
 
-	/* The size of this surface is 300x25 px */
-    @layout.size(300, 25)
-    /* Place it in the midddle of the view */
-    @layout.stick.top()
-
-    /* Listen for mouseover events to show the other Surface */
-    @event.on('mouseover', function(){ console.log( 'hello' )})
-
-
-    /* Define an animation on creation */
-    // @layout.animate({
-    //     animation: AnimationController.Animation.Fade,
-    //     transition: {duration: 1000}
-    // })
-   /* Initialize the surface itself */
-    message = new Surface({
-        /* The content of the surface */
-        content: `hello ${this.options.welcomeName}`,
-        /* CSS properties */
-        properties: {
-            textAlign: 'center',
-            color: 'slategray'
-        }
-    });
 	// creates the input fields
 
 	/* The size of this surface is 300x25 px */
@@ -92,69 +77,10 @@ export class HomeView extends ViewWithScroll {
     // })
     @event.on('keydown', function(e) {
     	if (e.keyCode === 13) {
+    		// once enter is pressed, send message
     		e.preventDefault()
-    		// console.log(e.target.value)
-    		// this.options.sendMessage()
-    		// console.log( this )
     		this.options.sendMessage( e.target.value )
     	}
     })
-    input = new SingleLineTextInput({placeholder:"typetypetype"})
-    	// .setPlaceholder("typetypetype")
-    // .getValue()
-    // .on('click', () => {
-
-    // })
+    input = new SingleLineTextInput( { placeholder: "typetypetype" } )
 }
-
-
-
-
-// export class HomeInput extends SingleLineTextInput {
-//     // @layout.size(50, 25)
-//     // @layout.stick.left()
-//     // message = new Surface({content: `Hello ${this.options.welcomeName}`});
-
-//     constructor(options = {}){
-//         super(options);
-//     }
-// }
-
-
-
-
- //    @layout.size(300, 25)
- //    /* Translate 100px below our main message */
- //    @layout.translate(0, 25, 0)
- //    @layout.animate({
- //        /* Hide initially */
- //        showInitially: false,
- //        /* Slide to the left in form the right */
- //        animation: AnimationController.Animation.Slide.Left,
- //        transition: {duration: 500}
- //    })
- //    @layout.stick.center()
- //    answer = new Surface({content: 'Yes?', properties: {textAlign: 'center'}});
-
- //    /* The size of this surface is 300x25 px */
- //    @layout.size(300, 35)
- //    @layout.translate(0, 100, 0)
- //    /* Place it in the midddle of the view */
- //    @layout.stick.center()
- //    @layout.animate({
- //        animation: AnimationController.Animation.FadedZoom,
- //        transition: {duration: 1000}
- //    })
- //    input = new InputSurface({type: "text"})
- //    .setPlaceholder("type something")
- //    // .getValue()
- //    // .on('click', () => {
-
- //    // })
-    
-	// @layout.size(50, 25)
- //    @layout.translate(0, 125, 0)
- //    /* Place it in the midddle of the view */
- //    @layout.stick.center()
- //    @event.on('click', function(){this.options.Trial()})
- //    submitInput = new SubmitInputSurface({value: "send"})
