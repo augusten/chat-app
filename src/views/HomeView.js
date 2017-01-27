@@ -29,6 +29,56 @@ import Utility               from 'famous/utilities/Utility.js'
 // }
 
 export class ViewWithScroll extends View {
+
+    @layout.size(600, 150)
+    @layout.stick.center()
+
+    scrollView = new DataBoundScrollView({
+    	mouseMove: true,
+    	scrollToNewChild: true,
+	    layout: CollectionLayout,
+	    layoutOptions: {
+	        itemSize: [undefined, 30]
+	    },
+	    itemTemplate: note => 
+	    	new Surface({ content: `Message: ${note.text}`}),
+	    dataStore: new Notes(),
+		chatScrolling: true
+    })
+}
+
+export class HomeView extends ViewWithScroll {
+	    /* The size of this surface is 300x25 px */
+	@layout.dock.bottom()
+    @layout.size(500, 35)
+    // @layout.translate(0, 300, 0)
+    /* Place it in the midddle of the view */
+    @layout.dock.center()
+    // @layout.animate({
+    //     animation: AnimationController.Animation.FadedZoom,
+    //     transition: {duration: 1000}
+    // })
+    input = new SingleLineTextInput({})
+    	.setPlaceholder("type something")
+    // .getValue()
+    // .on('click', () => {
+
+    // })
+}
+
+
+
+
+// export class HomeInput extends SingleLineTextInput {
+//     // @layout.size(50, 25)
+//     // @layout.stick.left()
+//     // message = new Surface({content: `Hello ${this.options.welcomeName}`});
+
+//     constructor(options = {}){
+//         super(options);
+//     }
+// }
+
 	/* The size of this surface is 300x25 px */
  //    @layout.size(300, 25)
  //    /* Place it in the midddle of the view */
@@ -87,55 +137,3 @@ export class ViewWithScroll extends View {
  //    @layout.stick.center()
  //    @event.on('click', function(){this.options.Trial()})
  //    submitInput = new SubmitInputSurface({value: "send"})
-
-    @layout.size(600, 150)
-    @layout.stick.center()
-
-    scrollView = new DataBoundScrollView({
-    	mouseMove: true,
-    	scrollToNewChild: true,
-	    layout: CollectionLayout,
-	    layoutOptions: {
-	        itemSize: [undefined, 30]
-	    },
-	    itemTemplate: note => 
-	    	new Surface({ content: `Message: ${note.text}`}),
-	    dataStore: new Notes(),
-		chatScrolling: true
-    })
-}
-
-export class HomeView extends ViewWithScroll {
-	    /* The size of this surface is 300x25 px */
-	@layout.dock.bottom()
-	@layout.dockPadding(15)
-	// @layout.dock.fill()
-	// @flow.stateStep('nonFilled', layout.dock.none(), layout.size(100, 100))
-    @layout.size(500, 35)
-    // @layout.translate(0, 300, 0)
-    /* Place it in the midddle of the view */
-    @layout.stick.center()
-    // @layout.animate({
-    //     animation: AnimationController.Animation.FadedZoom,
-    //     transition: {duration: 1000}
-    // })
-    input = new SingleLineTextInput({})
-    	.setPlaceholder("type something")
-    // .getValue()
-    // .on('click', () => {
-
-    // })
-}
-
-
-
-
-// export class HomeInput extends SingleLineTextInput {
-//     // @layout.size(50, 25)
-//     // @layout.stick.left()
-//     // message = new Surface({content: `Hello ${this.options.welcomeName}`});
-
-//     constructor(options = {}){
-//         super(options);
-//     }
-// }
