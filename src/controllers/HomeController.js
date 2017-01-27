@@ -29,8 +29,10 @@ export class HomeController extends Controller {
         if(!this.homeView) {
             this.homeView = new HomeView({
             	welcomeName: 'world',
-            	Trial () {
-            		console.log('it worksss')
+            	sendMessage ( msg ) {
+            		// once the message sent, add to the db
+            		console.log( msg )
+            		notes.add({ text: msg })
             	}
             });
             // console.log(notes)

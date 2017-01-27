@@ -30,6 +30,7 @@ import Utility               from 'famous/utilities/Utility.js'
 
 export class ViewWithScroll extends View {
 
+	// creates the scroll view of messages
     @layout.size(600, 150)
     @layout.stick.center()
 
@@ -45,21 +46,61 @@ export class ViewWithScroll extends View {
 	    dataStore: new Notes(),
 		chatScrolling: true
     })
+	constructor ( options = {} ) {
+    	super( options )
+    }
 }
 
 export class HomeView extends ViewWithScroll {
-	    /* The size of this surface is 300x25 px */
+	// create greeting
+
+	/* The size of this surface is 300x25 px */
+    @layout.size(300, 25)
+    /* Place it in the midddle of the view */
+    @layout.stick.top()
+
+    /* Listen for mouseover events to show the other Surface */
+    @event.on('mouseover', function(){ console.log( 'hello' )})
+
+
+    /* Define an animation on creation */
+    // @layout.animate({
+    //     animation: AnimationController.Animation.Fade,
+    //     transition: {duration: 1000}
+    // })
+   /* Initialize the surface itself */
+    message = new Surface({
+        /* The content of the surface */
+        content: `hello ${this.options.welcomeName}`,
+        /* CSS properties */
+        properties: {
+            textAlign: 'center',
+            color: 'slategray'
+        }
+    });
+	// creates the input fields
+
+	/* The size of this surface is 300x25 px */
 	@layout.dock.bottom()
     @layout.size(500, 35)
-    // @layout.translate(0, 300, 0)
     /* Place it in the midddle of the view */
-    @layout.dock.center()
+    @layout.stick.center()
     // @layout.animate({
+    // 	waitFor: 'scrollView',
     //     animation: AnimationController.Animation.FadedZoom,
     //     transition: {duration: 1000}
     // })
-    input = new SingleLineTextInput({})
-    	.setPlaceholder("type something")
+    @event.on('keydown', function(e) {
+    	if (e.keyCode === 13) {
+    		e.preventDefault()
+    		// console.log(e.target.value)
+    		// this.options.sendMessage()
+    		// console.log( this )
+    		this.options.sendMessage( e.target.value )
+    	}
+    })
+    input = new SingleLineTextInput({placeholder:"typetypetype"})
+    	// .setPlaceholder("typetypetype")
     // .getValue()
     // .on('click', () => {
 
@@ -79,27 +120,7 @@ export class HomeView extends ViewWithScroll {
 //     }
 // }
 
-	/* The size of this surface is 300x25 px */
- //    @layout.size(300, 25)
- //    /* Place it in the midddle of the view */
- //    @layout.stick.center()
- //    /* Listen for click events to show the other Surface */
- //    @event.on('click', function(){this.showRenderable('answer');})
- //    /* Define an animation on creation */
- //    @layout.animate({
- //        animation: AnimationController.Animation.Fade,
- //        transition: {duration: 1000}
- //    })
- //   /* Initialize the surface itself */
- //    message = new Surface({
- //        /* The content of the surface */
- //        content: `hello ${this.options.welcomeName}`,
- //        /* CSS properties */
- //        properties: {
- //            textAlign: 'center',
- //            color: 'slategray'
- //        }
- //    });
+
 
 
  //    @layout.size(300, 25)
