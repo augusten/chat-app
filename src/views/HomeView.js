@@ -53,19 +53,25 @@ export class ViewWithTop extends View {
 export class ViewWithScroll extends ViewWithTop {
 
 	// creates the scroll view of messages
-    @layout.size(600, 150)
+    @layout.size(400, 150)
     @layout.stick.center()
     @layout.translate(0, -100, 0)
 
     scrollView = new DataBoundScrollView({
     	mouseMove: true,
-    	scrollToNewChild: true,
+    	// scrollToNewChild: true,
 	    layout: CollectionLayout,
-	    layoutOptions: {
-	        itemSize: [undefined, undefined]
-	    },
 	    itemTemplate: note => 
-	    	new Surface({ content: `${note.text}`}),
+	    	new Surface({ 
+	    		content: `${note.text}`,
+	    		size: [ undefined, true ],
+	    		// margin: '50px',
+	    		properties: { 
+	    			'border': "1px solid grey",
+	    			'border-radius': "12px", 
+	    			'padding': '15px',
+	    			'textAlign': 'justify' }
+	    	}),
 	    dataStore: new Notes(),
 		chatScrolling: true
     })
