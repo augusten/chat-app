@@ -12,6 +12,7 @@ import {DataBoundScrollView} from 'arva-js/components/DataBoundScrollView.js';
 import CollectionLayout      from 'famous-flex/layouts/CollectionLayout.js';
 import {Note, Notes}         from '../models/HomeModel.js'
 import Utility               from 'famous/utilities/Utility.js'
+// import
 
 
 // export class ViewWithGrid extends View {
@@ -58,22 +59,28 @@ export class ViewWithScroll extends ViewWithTop {
     @layout.translate(0, -100, 0)
 
     scrollView = new DataBoundScrollView({
-    	mouseMove: true,
-    	// scrollToNewChild: true,
+    	drag: 10,
+    	paginated: true,
+    	
 	    layout: CollectionLayout,
+	    layoutOptions: { 
+	    	spacing: 10 
+	    },
 	    itemTemplate: note => 
 	    	new Surface({ 
 	    		content: `${note.text}`,
 	    		size: [ undefined, true ],
 	    		// margin: '50px',
-	    		properties: { 
+	    		properties: {
 	    			'border': "1px solid grey",
 	    			'border-radius': "12px", 
 	    			'padding': '15px',
 	    			'textAlign': 'justify' }
 	    	}),
 	    dataStore: new Notes(),
-		chatScrolling: true
+		chatScrolling: true,
+		alignment: 1
+		// pullToRefreshHeader: pullToRefreshHeader
     })
 	constructor ( options = {} ) {
     	super( options )
