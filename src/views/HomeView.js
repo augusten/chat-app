@@ -1,19 +1,17 @@
 import Surface               from 'famous/core/Surface.js';
-import Engine               from 'famous/core/Engine.js';
+// import Engine               from 'famous/core/Engine.js';
 import InputSurface          from 'famous/surfaces/InputSurface.js';
 import TextareaSurface       from 'famous/surfaces/TextareaSurface.js';
-import GridLayout            from 'famous/views/GridLayout.js';
-// import SubmitInputSurface    from 'famous/surfaces/SubmitInputSurface.js';
+import ListLayout            from 'famous-flex/layouts/ListLayout.js';
+import AnimationController   from 'famous-flex/AnimationController.js';
+// import GridLayout            from 'famous/views/GridLayout.js';
 import {View}                from 'arva-js/core/View.js';
 import {layout, event}       from 'arva-js/layout/Decorators.js';
 import {SingleLineTextInput} from 'arva-js/components/inputs/SingleLineTextInput.js';
-import AnimationController   from 'famous-flex/AnimationController.js';
 import {DataBoundScrollView} from 'arva-js/components/DataBoundScrollView.js';
-import CollectionLayout      from 'famous-flex/layouts/CollectionLayout.js';
-import {Note, Notes}         from '../models/HomeModel.js'
-import Utility               from 'famous/utilities/Utility.js'
-// import
 
+import {Note, Notes}         from '../models/HomeModel.js'
+// import Utility               from 'famous/utilities/Utility.js'
 
 // export class ViewWithGrid extends View {
 // 	mainContext = Engine.createContext();
@@ -23,6 +21,43 @@ import Utility               from 'famous/utilities/Utility.js'
 // 		dimensions: [1, 3]
 // 	}).sequenceFrom( surfaces )
 // }
+
+export class TitleText extends Surface {
+    constructor(options) {
+        super(combineOptions({
+            properties: {
+                fontFamily: 'monospace',
+                fontSize: '25px'
+            }
+        }, options));
+    }
+}
+
+export class NameText extends SingleLineTextInput {
+	constructor(options) {
+        super(combineOptions({
+            properties: {
+                fontFamily: 'monospace',
+                fontSize: '12px',
+                lineHeight:'110%',
+                fontWeight: 'lighter',
+            }
+        }, options));
+    }
+}
+
+export class MessageText extends TextareaSurface {
+	constructor(options) {
+        super(combineOptions({
+            properties: {
+                fontFamily: 'monospace',
+                fontSize: '12px',
+                lineHeight:'110%',
+                fontWeight: 'lighter',
+            }
+        }, options));
+    }
+}
 
 export class ViewWithTop extends View {
 	// create greeting
@@ -57,18 +92,26 @@ export class ViewWithScroll extends ViewWithTop {
     @layout.size(400, 150)
     @layout.stick.center()
     @layout.translate(0, -100, 0)
+    // @layout.custom( (context) => {
+    // 	context.set('scrollView', {
+    // 		position: [100, 100]
+    // 	})
+    // })
+    // @ set position to the end
 
-    scrollView = new DataBoundScrollView({
+    // @event.once ( 'ready', function() { scrollView.goToLastPage(); })
+    scrollView = new DataBoundScrollView ({
+    	flow: true,
     	drag: 10,
     	paginated: true,
-    	
-	    layout: CollectionLayout,
+
+	    layout: ListLayout,
 	    layoutOptions: { 
 	    	spacing: 10 
 	    },
 	    itemTemplate: note => 
 	    	new Surface({ 
-	    		content: `${note.text}`,
+	    		content: `${note.author} \n\n ${note.text}`,
 	    		size: [ undefined, true ],
 	    		// margin: '50px',
 	    		properties: {
@@ -79,9 +122,10 @@ export class ViewWithScroll extends ViewWithTop {
 	    	}),
 	    dataStore: new Notes(),
 		chatScrolling: true,
-		alignment: 1
+		alignment: 1,
 		// pullToRefreshHeader: pullToRefreshHeader
     })
+	// scrollView.setPosition(200000)
 	constructor ( options = {} ) {
     	super( options )
     }
@@ -89,36 +133,30 @@ export class ViewWithScroll extends ViewWithTop {
 
 export class HomeView extends ViewWithScroll {
 
-	// creates the input fields
+	// CREATE INPUT FIELDS
 
-	// author input
-	/* The size of this surface is 300x25 px */
 	@layout.stick.bottom()
 	@layout.translate(0, -80, 0)
     @layout.size(500, 35)
 
-    inputName = new SingleLineTextInput( { placeholder: "name" } )
+    inputName = new InputSurface( { placeholder: "name" } )
 
-	/* The size of this surface is 300x25 px */
 	@layout.dock.bottom()
 	@layout.translate(0, -5, 0)
     @layout.size(500, 70)
     @layout.stick.center()
-    // @layout.animate({
-    // 	waitFor: 'scrollView',
-    //     animation: AnimationController.Animation.FadedZoom,
-    //     transition: {duration: 1000}
+
+    // ALTERNATIVE WAY TO DO KEYPRESS ( if sendMessage is a function in controller )
+
+    // @event.on('keydown', function(e) {
+    // 	if (e.keyCode === 13) {
+    // 		// once enter is pressed, send message
+    // 		e.preventDefault()
+    // 		this.options.sendMessage( e.target.value )
+    // 	}
     // })
-    @event.on('keydown', function(e) {
-    	if (e.keyCode === 13) {
-    		// once enter is pressed, send message
-    		e.preventDefault()
-    		this.options.sendMessage( e.target.value )
-    	}
-    })
     input = new TextareaSurface( { 
     	placeholder: "message",
-    	wrap: "hard",
     	size: true
     	 } )
 }
