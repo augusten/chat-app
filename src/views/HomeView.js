@@ -14,7 +14,7 @@ import { Note, Notes }         from '../models/HomeModel.js'
 
 export class ViewWithTop extends View {
 
-	// create greeting
+    // create greeting
     @layout.dock.top(44, 0, 10)
     @layout.animate( {
     	hide: true,
@@ -35,8 +35,8 @@ export class ViewWithTop extends View {
 
 export class ViewWithScroll extends ViewWithTop {
 	
-	// set background color
-	@layout.fullSize( )
+    // set background color
+    @layout.fullSize( )
     background = new Surface({ properties: {backgroundColor: 'white' }});
 
 	// creates the scroll view of messages
@@ -52,7 +52,6 @@ export class ViewWithScroll extends ViewWithTop {
 	    	new Surface({ 
 	    		content: `${note.author} writes: <br><br> ${note.text}`,
 	    		size: [ true, true ],
-	    		// margin: '50px',
 	    		properties: {
 	    			'min-width': '250px',
 	    			'border': "1px solid grey",
@@ -80,7 +79,7 @@ export class ViewWithScroll extends ViewWithTop {
 
 export class HomeView extends ViewWithScroll {
 
-	// Create input fields
+    // Create input fields
 
    	@layout.size( undefined, undefined )
     inputName = new InputSurface( { 
@@ -97,7 +96,7 @@ export class HomeView extends ViewWithScroll {
     	value: 'Send' 
     } )
 
-	@layout.size( undefined, undefined )
+     @layout.size( undefined, undefined )
     input = new TextareaSurface( { 
     	placeholder: "message",
    		properties: {

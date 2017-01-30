@@ -43,10 +43,10 @@ export class HomeController extends Controller {
     		innerLayout.sequenceFrom( innerSurfaces )
 
 			// populate inner surface first and then the surfaces
-			innerSurfaces.push(
-				this.homeView.inputName,
-				this.homeView.inputButton,
-			)
+    		innerSurfaces.push(
+	    		this.homeView.inputName,
+		    	this.homeView.inputButton,
+    		)
 
     		surfaces.push(
     			this.homeView.message,  
