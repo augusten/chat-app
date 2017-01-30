@@ -17,6 +17,9 @@ import {HomeController}             from './controllers/HomeController.js';
 
 export class App extends ArvaApp {
 
+    /* References to Dependency Injection created App and Controller instances, so they are not garbage collected. */
+    static references = {};
+
     /* The controllers that will be used in the app. */
     static controllers = [HomeController];
 
@@ -41,6 +44,18 @@ export class App extends ArvaApp {
         /* Change initial route, view animation or something needed before we start */
         provide( DataSource )( App.defaultDataSource );
         this.start();
+    }
+    static loaded(){
+        /* Instantiate things you need before the router is executed here. For example:
+         *
+         * this.references.menu = Injection.get(Menu); */
+    }
+
+    /**
+     * Called by super class after all components (routing, controllers, views, etc.) have been loaded and the
+     * app is up and running.
+     */
+    static done(){
     }
 }
 

@@ -30,17 +30,33 @@ export class HomeController extends Controller {
     			direction: 1,
     			ratios: [2, 10, 1, 3]
     		} );
-
     		// initialize layout surfaces
     		var surfaces = [];
     		flexLayout.sequenceFrom( surfaces )
 
-			// populate surfaces
+    		// inner layout for the input + button
+    		var innerLayout = new FlexibleLayout({
+    			direction: 0,
+    			ratios: [9, 1]
+    		});
+    		var innerSurfaces = [];
+    		innerLayout.sequenceFrom( innerSurfaces )
+
+			// populate inner surface first and then the surfaces
+			innerSurfaces.push(
+				this.homeView.inputName,
+				this.homeView.inputButton,
+			)
+
     		surfaces.push(
     			this.homeView.message,  
     			this.homeView.scrollView, 
-    			this.homeView.inputName,
-    			this.homeView.input )
+    			new Surface({}),
+    			this.homeView.input 
+    		)
+
+    		// change the placeholder surface to the inner one
+    		surfaces[2] = innerLayout
 
     		mainContext.add( flexLayout ); 
 
@@ -50,8 +66,15 @@ export class HomeController extends Controller {
 	        	if (event.keyCode === 13) {
 					event.preventDefault( )
 					notes.add( {text: this.homeView.input.getValue(), author: this.homeView.inputName.getValue( ) })
-					this.homeView.input = this.homeView.input.setValue( '' )
+					this.homeView.input.value = ''
 				}
+	        })
+
+	        // send message when button is pressed
+	        this.homeView.inputButton.on( 'click', ( event ) => {	        	
+				event.preventDefault( )
+				notes.add( {text: this.homeView.input.getValue(), author: this.homeView.inputName.getValue( ) })
+				this.homeView.input.value = ''
 	        })
 	        // console.log( this.homeView.scrollView._calcScrollHeight() )
 	        // console.log( this.homeView.scrollView._debug )

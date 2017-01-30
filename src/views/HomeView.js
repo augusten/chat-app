@@ -42,7 +42,6 @@ export class ViewWithScroll extends ViewWithTop {
 	// creates the scroll view of messages
     scrollView = new DataBoundScrollView ( {
     	flow: true,
-
 	    layout: ListLayout,
 	    layoutOptions: { 
 	    	spacing: 10,
@@ -84,7 +83,6 @@ export class HomeView extends ViewWithScroll {
 	// Create input fields
 
    	@layout.size( undefined, undefined )
-
     inputName = new InputSurface( { 
     	placeholder: "name",
    		properties: {
@@ -92,6 +90,12 @@ export class HomeView extends ViewWithScroll {
      		'fontSize': '16px' 
      	}
      })
+
+    @layout.size( undefined, undefined )
+    inputButton = new InputSurface( {
+    	type: 'button',
+    	value: 'Send' 
+    } )
 
 	@layout.size( undefined, undefined )
     input = new TextareaSurface( { 
