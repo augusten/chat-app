@@ -1,8 +1,5 @@
-# Arva Seed
-A seed project for cross platform apps based on Arva. Please use Node version `5.12.0`.
-
-## Installation
-Instructions can be found <a href="https://github.com/Bizboard/arva-js/wiki/Installation">here</a>.
+# Chat App based on ArvaJS
+A simple chat app built using the <a href="https://github.com/Bizboard/arva-seed">seed project</a> for cross platform apps based on Arva.  Node version `5.12.0` is needed.
 
 ## License
 NPOSL-3.0
