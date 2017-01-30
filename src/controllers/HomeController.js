@@ -1,15 +1,13 @@
-'use strict';
-
 import { Controller }               from 'arva-js/core/Controller.js';
 import { DataBoundScrollView }      from 'arva-js/components/DataBoundScrollView.js';
 import { HomeView }                 from '../views/HomeView.js';
 import { Note, Notes }              from '../models/HomeModel.js';
+
 import LinkedListViewSequence       from 'famous-flex/LinkedListViewSequence';
 import ListLayout                   from 'famous-flex/layouts/ListLayout.js';
 import Surface                      from 'famous/core/Surface.js';
 import Engine                       from 'famous/core/Engine.js';
 import FlexibleLayout               from 'famous/views/FlexibleLayout.js';
-// import Scroller                     from 'famous/views/Scroller.js';
 
 
 

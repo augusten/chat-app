@@ -3,6 +3,7 @@ import InputSurface            from 'famous/surfaces/InputSurface.js';
 import TextareaSurface         from 'famous/surfaces/TextareaSurface.js';
 import ListLayout              from 'famous-flex/layouts/ListLayout.js';
 import AnimationController     from 'famous-flex/AnimationController.js';
+
 import { View }                from 'arva-js/core/View.js';
 import { layout, event }       from 'arva-js/layout/Decorators.js';
 import { SingleLineTextInput } from 'arva-js/components/inputs/SingleLineTextInput.js';
@@ -12,22 +13,17 @@ import { Note, Notes }         from '../models/HomeModel.js'
 
 
 export class ViewWithTop extends View {
+
 	// create greeting
-
-	/* The size of this surface is 300x25 px */
     @layout.dock.top(44, 0, 10)
-
-    /* Define an animation on creation */
     @layout.animate( {
     	hide: true,
         animation: AnimationController.Animation.Slide.Down,
         transition: { duration: 200 }
     })
-   /* Initialize the surface itself */
+
     message = new Surface({
-        /* The content of the surface */
         content: `hello ${this.options.welcomeName}`,
-        /* CSS properties */
         properties: {
             textAlign: 'center',
             color: 'black',
@@ -53,11 +49,6 @@ export class ViewWithScroll extends ViewWithTop {
 	    	margins: [0, 15, 10, 15], 
 	    },
 	    useContainer: true,
-	    container: { // options passed to the ContainerSurface
-	        properties: {
-	            overflow: 'hidden'
-	        }
-	    },
 	    itemTemplate: note =>
 	    	new Surface({ 
 	    		content: `${note.author} writes: <br><br> ${note.text}`,
@@ -82,6 +73,7 @@ export class ViewWithScroll extends ViewWithTop {
 		mouseMove: true,
         debug: true,
     })
+
 	constructor ( options = { } ) {
     	super( options )
     }
@@ -89,7 +81,7 @@ export class ViewWithScroll extends ViewWithTop {
 
 export class HomeView extends ViewWithScroll {
 
-	// CREATE INPUT FIELDS
+	// Create input fields
 
    	@layout.size( undefined, undefined )
 
