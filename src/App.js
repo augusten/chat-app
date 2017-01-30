@@ -12,13 +12,10 @@ import {App as ArvaApp}             from 'arva-js/core/App.js';
 import './famous.css';
 import './fonts.css';
 
-/* Here we import all controllers we want to use in the app */
+/* Import all controllers we want to use in the app */
 import {HomeController}             from './controllers/HomeController.js';
 
 export class App extends ArvaApp {
-
-    /* References to Dependency Injection created App and Controller instances, so they are not garbage collected. */
-    static references = {};
 
     /* The controllers that will be used in the app. */
     static controllers = [HomeController];
@@ -42,26 +39,9 @@ export class App extends ArvaApp {
      */
     static initialize(){
         /* Change initial route, view animation or something needed before we start */
-        provide(DataSource)(App.defaultDataSource);
+        provide( DataSource )( App.defaultDataSource );
         this.start();
-    }
-
-    /**
-     * Called after the Router, Famous Context, and Controllers have been instantiated,
-     * but before any Controller method is executed by the Router.
-     */
-    static loaded(){
-        /* Instantiate things you need before the router is executed here. For example:
-         *
-         * this.references.menu = Injection.get(Menu); */
-    }
-
-    /**
-     * Called by super class after all components (routing, controllers, views, etc.) have been loaded and the
-     * app is up and running.
-     */
-    static done(){
     }
 }
 
-document.addEventListener('deviceready', App.initialize.bind(App));
+document.addEventListener( 'deviceready', App.initialize.bind(App) );
